@@ -26,33 +26,33 @@ def scan(ip,start,end,textBox):
         output += "Name: {} \n".format(res['name'])
         output += "State: {} \n".format(res['state'])
         textBox.insert(END,output)
-    
 
-labelText=StringVar()
-labelText.set("IP ADDRESS")
-labelDir=Label(root, textvariable=labelText, height=4, bg="#F1F1F1")
-labelDir.grid(row=1,column=1, padx=10,pady=10)
+def createLabel(root,row,column,text,padx,pady):
 
-ip = Entry(root,width=20)
-ip.grid(row=1,column=2, padx=5,pady=10)
+    labelText=StringVar()
+    labelText.set(text)
+    labelDir=Label(root, textvariable=labelText, height=4, bg="#F1F1F1")
+    labelDir.grid(row=row,column=column, padx=padx,pady=pady)
 
+    return labelDir
 
-labelText=StringVar()
-labelText.set("Port Range:")
-labelDir=Label(root, textvariable=labelText, height=4,bg="#F1F1F1")
-labelDir.grid(row=1,column=3, padx=5,pady=10)
+def createEntry(root,row,column,width,padx,pady):
 
-portStart = Entry(root,width=8)
-portStart.grid(row=1,column=4, padx=4,pady=10)
+    ip = Entry(root,width=width)
+    ip.grid(row=row,column=column, padx=padx,pady=pady)
+    return ip
 
-labelText=StringVar()
-labelText.set(":")
-labelDir=Label(root, textvariable=labelText, height=4,bg="#F1F1F1")
-labelDir.grid(row=1,column=5, padx=0,pady=0)
+ipLabel = createLabel(root,1,1,"IP",10,10)
 
-portEnd = Entry(root,width=8)
-portEnd.grid(row=1,column=6, padx=5,pady=10)
+ip = createEntry(root,1,2,20,5,10)
 
+portLabel = createLabel(root,1,3,"Port Range",5,10)
+
+portStart = createEntry(root,1,4,8,5,10)
+
+colonLabel = createLabel(root,1,5,":",0,0)
+
+portEnd = createEntry(root,1,6,8,5,10)
 
 text = scrolledtext.ScrolledText(root)
 text.grid(column=1,row=2,columnspan=12, padx=10,pady=10)
@@ -63,4 +63,5 @@ button = Button(root, text="SCAN", command = scanPort)
 button.grid(row=1,column=7,padx=5,pady=10)
 
 root.title("Port Scanner")
+root.resizable(width=False, height=False)
 root.mainloop()
